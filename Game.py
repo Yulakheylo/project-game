@@ -25,18 +25,34 @@ def load_image(name, colorkey=None):
 
 #ОТРИСОВККА фона
 background_image = pygame.image.load('images/fon.png')
+background_image = pygame.transform.scale(background_image, size)
 
 #функция для завершения программы
 def terminate():
     pygame.quit()
     sys.exit()
 
+#Заставка
+def zastavka():
+    img_game = pygame.image.load('images/zastavka.png')
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.KEYDOWN or \
+                    event.type == pygame.MOUSEBUTTONDOWN:
+                return
+        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
+        pygame.display.flip()
+
+zastavka()
+
 #главный игровой цикл
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             terminate()
-    screen.blit(background_image, (-100, -160))
+    screen.blit(background_image, (0, 0))
     pygame.display.flip()
     clock.tick(FPS)
 
