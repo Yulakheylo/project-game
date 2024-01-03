@@ -71,8 +71,18 @@ def generate_level(level):
                 Tile('zemla', x, y)
             elif level[y][x] == '#':
                 Tile('kirpichik', x, y)
-            elif level[y][x] == '@':
+            elif level[y][x] == '2':
                 Tile('water', x, y)
+            elif level[y][x] == '$':
+                Tile('kolona', x, y)
+            elif level[y][x] == '3':
+                Tile('oblako', x, y)
+            elif level[y][x] == '^':
+                Tile('bugor', x, y)
+            elif level[y][x] == '*':
+                Tile('life', x, y)
+            elif level[y][x] == 'm':
+                Tile('money', x, y)
     return x, y
 
 
@@ -86,11 +96,19 @@ class Tile(pygame.sprite.Sprite):
 
 
 # Загрузка изображений тайлов и игрока
+
+# Загрузка изображений тайлов и игрока
 tile_images = {
     'zemla': load_image('earth.png'),
     'kirpichik': load_image('kirpich.png'),
-    'water': load_image('water.png')
+    'water': load_image('water.png'),
+    'kolona': load_image('kolona.png'),
+    'oblako': load_image('oblachko.png'),
+    'bugor': load_image('bugor.png'),
+    'life': load_image('life.png'),
+    'money': load_image('money.png')
 }
+
 
 # размеры тайла
 tile_width = tile_height = 74
@@ -100,7 +118,6 @@ tiles_group = pygame.sprite.Group()  # Группа спрайтов для та
 
 level = load_level('level.txt')  # Загрузка уровня из файла
 level_x, level_y = generate_level(level)  # Генерация уровня
-
 
 # главный игровой цикл
 while True:
