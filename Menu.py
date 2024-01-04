@@ -29,7 +29,7 @@ class Game:
             pygame.quit()
 
 
-class Knopka:
+class Menu:
     def __init__(self, x, y, width, height, kartinka, text):
         self.x = x
         self.y = y
@@ -53,7 +53,7 @@ class Knopka:
                     knopka_output.proverka_clicking(pygame.mouse.get_pos()) or
                     knopka_levels.proverka_clicking(pygame.mouse.get_pos()) or
                     knopka_coin.proverka_clicking(pygame.mouse.get_pos())):
-                self.sound = pygame.mixer.Sound('sounds/звук_кнопки.mp3')
+                self.sound = pygame.mixer.Sound('sounds/sound_knopka.mp3')
                 self.sound.play()
 
     def proverka_clicking(self, pos):
@@ -72,10 +72,10 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(SIZE)
     pygame.display.set_caption('Старт')
 
-    knopka_start = Knopka(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Кнопка.png', 'Начать игру')
-    knopka_output = Knopka(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Кнопка.png', 'Выйти из игры')
-    knopka_levels = Knopka(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Кнопка.png', 'Уровни')
-    knopka_coin = Knopka(270, 470, 70, 50, 'images/coins.png', '')
+    knopka_start = Menu(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Knopka.png', 'Начать игру')
+    knopka_output = Menu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
+    knopka_levels = Menu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
+    knopka_coin = Menu(270, 470, 70, 50, 'images/coins.png', '')
 
     game = Game()
 
