@@ -95,7 +95,7 @@ class Game:
                 for x in range(len(level[y])):
                     if level[y][x] == '1':
                         Tile('earth.png', x, y)
-                    if level[y][x] == '2':
+                    elif level[y][x] == '2':
                         Tile('pov_earth.png', x, y)
                     elif level[y][x] == '#':
                         Tile('kirpich.png', x, y)
@@ -118,6 +118,18 @@ class Game:
 
             return new_player, x, y
 
+        # Функция для перемещения объекта в заданном направлении
+        def move(obj, direction):
+            x, y = obj.pos
+            if direction == 'left' and x > 0 and level[y][x - 1] != '#':
+                obj.move(x - 1, y)
+            if direction == 'right' and x < level_x and level[y][x + 1] != '#':
+                obj.move(x + 1, y)
+            if direction == 'up' and y > 0 and level[y - 1][x] != '#':
+                obj.move(x, y - 1)
+            if direction == 'down' and y < level_y and level[y + 1][x] != '#':
+                obj.move(x, y + 1)
+
         # Класс для отображения тайла
         class Tile(pygame.sprite.Sprite):
             def __init__(self, tile_type, pos_x, pos_y):
@@ -132,13 +144,13 @@ class Game:
                 super().__init__(player_group, all_sprites)
                 self.image = player_image
                 self.rect = self.image.get_rect().move(
-                    tile_width * pos_x + 15, tile_height * pos_y + 5)
+                    tile_width * pos_x, tile_height * pos_y + 2)
                 self.pos = pos_x, pos_y
 
             def move(self, x, y):
                 self.pos = x, y
                 self.rect = self.image.get_rect().move(
-                    tile_width * x + 15, tile_height * y + 5)
+                    tile_width * x, tile_height * y + 2)
 
 
         #загрузка изображения игрока
@@ -162,6 +174,15 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     terminate()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_LEFT:
+                        move(player, 'left')
+                    if event.key == pygame.K_RIGHT:
+                        move(player, 'right')
+                    if event.key == pygame.K_UP:
+                        move(player, 'up')
+                    if event.key == pygame.K_DOWN:
+                        move(player, 'down')
             screen.blit(background_image, (0, 0))
             tiles_group.draw(screen)#отрисовака тайлов
             player_group.draw(screen)  # отрисовка игрока
