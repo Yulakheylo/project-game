@@ -95,10 +95,14 @@ class Game:
                 for x in range(len(level[y])):
                     if level[y][x] == '1':
                         Tile('earth.png', x, y)
+                    if level[y][x] == '2':
+                        Tile('pov_earth.png', x, y)
                     elif level[y][x] == '#':
                         Tile('kirpich.png', x, y)
                     elif level[y][x] == '.':
                         Tile('water.png', x, y)
+                    elif level[y][x] == ',':
+                        Tile('pov_water.png', x, y)
                     elif level[y][x] == '$':
                         Tile('kolona.png', x, y)
                     elif level[y][x] == '3':
