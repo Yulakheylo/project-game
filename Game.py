@@ -121,13 +121,13 @@ def screen_igra():
         def update(self):  # функция для обновления координат игрока
             if self.moving:
                 if self.direction == 'left' and self.rect.x > 0:  # движение влево
-                    self.rect.left -= 10
+                    self.rect.left -= 0.5
                 if self.direction == 'right' and self.rect.x < level_x:  # движение вправо
-                    self.rect.left += 10
+                    self.rect.left += 0.5
                 if self.direction == 'up' and self.rect.y > 0:  # движение вверх
-                    self.rect.top -= 10
+                    self.rect.top -= 0.5
                 if self.direction == 'down' and self.rect.y < level_y:  # движение вниз
-                    self.rect.top += 10
+                    self.rect.top += 0.5
 
 
     # загрузка изображения игрока
