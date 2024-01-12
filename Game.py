@@ -9,7 +9,6 @@ SIZE = WIDTH, HEIGHT = 1187, 660
 pygame.init()
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption('В поисках утерянного клада')
-
 clock = pygame.time.Clock()
 
 
