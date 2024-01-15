@@ -55,9 +55,6 @@ zastavka()
 
 
 class Game:
-    def __init__(self):
-        pass
-
     def screen_igra(self):
         if __name__ == '__main__':
             pygame.init()
@@ -73,14 +70,13 @@ class Game:
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         running = False
-
                 screen.fill((255, 255, 255))
                 screen.blit(kartinka, (0, 0))
                 pygame.display.flip()
             pygame.quit()
 
 
-class Menu:
+class StartMenu:
     def __init__(self, x, y, width, height, kartinka, text):
         self.x = x
         self.y = y
@@ -113,9 +109,77 @@ class Menu:
 
 
 def text_name_game(screen):
-    font = pygame.font.Font(None, 38)
+    font = pygame.font.Font(None, 60)
     text = font.render('В поисках утерянного клада', 1, (0, 100, 0))
-    screen.blit(text, (WIDTH / 2 - (350 / 2), 80))
+    screen.blit(text, (WIDTH / 2 - (520 / 2), 80))
+
+
+# class FinishMenu:
+#     def __init__(self, x, y, width, height, kartinka, text):
+#         self.x = x
+#         self.y = y
+#         self.width = width
+#         self.height = height
+#         self.kartinka = pygame.image.load(kartinka)
+#         self.kartinka = pygame.transform.scale(self.kartinka, (width, height))
+#         self.text = text
+#
+#     def text_on_knopki(self, screen):
+#         font = pygame.font.Font(None, 38)
+#         text = font.render(self.text, 1, (255, 255, 255))
+#         knopka = pygame.Rect(self.x, self.y, self.width, self.height)
+#         screen.blit(self.kartinka, knopka)
+#         screen.blit(text, (self.x + (self.width - text.get_width()) // 2,
+#                            self.y + (self.height - text.get_height()) // 2))
+#
+#     def clicking(self, event):
+#         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+#             if (knopka_finish.proverka_clicking(pygame.mouse.get_pos()) or
+#                     knopka_next_level.proverka_clicking(pygame.mouse.get_pos())):
+#                 self.sound = pygame.mixer.Sound('sounds/sound_knopka.mp3')
+#                 self.sound.play()
+#
+#     def proverka_clicking(self, pos):
+#         return self.x < pos[0] < self.x + self.width and \
+#             self.y < pos[1] < self.y + self.height
+#
+#
+# def text_name_game(screen):
+#     font = pygame.font.Font(None, 60)
+#     font_coins = pygame.font.Font(None, 34)
+#     text = font.render('Уровень пройден!', 1, (255, 255, 255))
+#     collected_coins = font_coins.render('Вы собрали монет:', 1, (255, 255, 255))
+#     screen.blit(text, (WIDTH / 2 - (350 / 2), 80))
+#     screen.blit(collected_coins, (WIDTH / 2 - (200 / 2), 170))
+#
+#
+# if __name__ == '__main__':
+#     pygame.init()
+#     size = width, height = 1187, 660
+#     screen = pygame.display.set_mode(size)
+#     pygame.display.set_caption('Меню выход')
+#
+#     foto_fona = pygame.image.load('images/fon_finish.png')
+#     foto_fona = pygame.transform.scale(foto_fona, (size))
+#
+#     knopka_next_level = FinishMenu(WIDTH / 2 - (251 / 2), 250, 252, 80, 'Knopka.png', 'Новый уровень')
+#     knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 360, 252, 80, 'Knopka.png', 'Завершить игру')
+#     running = True
+#     while running:
+#         for event in pygame.event.get():
+#             if event.type == pygame.QUIT:
+#                 running = False
+#             knopka_next_level.clicking(event)
+#         screen.fill((0, 0, 0))
+#         screen.blit(foto_fona, (0, 0))
+#
+#         knopka_finish.text_on_knopki(screen)
+#         knopka_next_level.text_on_knopki(screen)
+#
+#         text_name_game(screen)
+#
+#         pygame.display.flip()
+#     pygame.quit()
 
 
 if __name__ == "__main__":
@@ -123,16 +187,17 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(SIZE)
     pygame.display.set_caption('Старт')
 
-    knopka_start = Menu(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Knopka.png', 'Начать игру')
-    knopka_output = Menu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
-    knopka_levels = Menu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
-    knopka_coin = Menu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
+    knopka_start = StartMenu(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Knopka.png', 'Начать игру')
+    knopka_output = StartMenu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
+    knopka_levels = StartMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
+    knopka_coin = StartMenu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
+    # knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Завершить игру')
 
     game = Game()
+    # finish_menu = FinishMenu()
 
     foto_fona = pygame.image.load('images/fon_menu.jpg')
     foto_fona = pygame.transform.scale(foto_fona, (1800, 660))
-
     running = True
     while running:
         for event in pygame.event.get():
@@ -142,7 +207,6 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
                     game.screen_igra()
-
         screen.fill((0, 0, 0))
         screen.blit(foto_fona, (0, 0))
 
@@ -150,6 +214,7 @@ if __name__ == "__main__":
         knopka_output.text_on_knopki(screen)
         knopka_levels.text_on_knopki(screen)
         knopka_coin.text_on_knopki(screen)
+        # knopka_finish.text_on_knopki(screen)
 
         text_name_game(screen)
 
