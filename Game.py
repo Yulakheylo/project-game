@@ -162,13 +162,17 @@ def text_name_game(screen):
 #     foto_fona = pygame.image.load('images/fon_finish.png')
 #     foto_fona = pygame.transform.scale(foto_fona, (size))
 #
-#     knopka_next_level = FinishMenu(WIDTH / 2 - (251 / 2), 250, 252, 80, 'Knopka.png', 'Новый уровень')
-#     knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 360, 252, 80, 'Knopka.png', 'Завершить игру')
+#     knopka_next_level = FinishMenu(WIDTH / 2 - (251 / 2), 250, 252, 80, 'images/Knopka_finish.png', 'Новый уровень')
+#     knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 360, 252, 80, 'images/Knopka_finish.png', 'Завершить игру')
 #     running = True
 #     while running:
 #         for event in pygame.event.get():
 #             if event.type == pygame.QUIT:
 #                 running = False
+#             knopka_finish.clicking(event)
+#             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+#                 if knopka_finish.proverka_clicking(pygame.mouse.get_pos()):
+#                     zastavka()
 #             knopka_next_level.clicking(event)
 #         screen.fill((0, 0, 0))
 #         screen.blit(foto_fona, (0, 0))
@@ -197,7 +201,7 @@ if __name__ == "__main__":
     # finish_menu = FinishMenu()
 
     foto_fona = pygame.image.load('images/fon_menu.jpg')
-    foto_fona = pygame.transform.scale(foto_fona, (1800, 660))
+    foto_fona = pygame.transform.scale(foto_fona, (size))
     running = True
     while running:
         for event in pygame.event.get():
