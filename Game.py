@@ -2,20 +2,40 @@ import pygame
 import sys
 import os
 
-FPS = 50
+FPS = 15
 size = WIDTH, HEIGHT = 1187, 660
 SIZE = WIDTH, HEIGHT = 1187, 660
 
 pygame.init()
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption('В поисках утерянного клада')
+pygame.display.set_caption('Игра')
+
 clock = pygame.time.Clock()
+
+
+# функция для загрузки изображений
+def load_image(name, colorkey=None):
+    fullname = os.path.join('images', name)
+    image = pygame.image.load(fullname).convert()
+    if colorkey is not None:
+        if colorkey == -1:
+            colorkey = image.get_at((0, 0))
+        image.set_colorkey(colorkey)
+    else:
+        image = image.convert_alpha()
+    return image
+
+
+# ОТРИСОВККА фона
+background_image = pygame.image.load('images/fon.png')
+background_image = pygame.transform.scale(background_image, size)
 
 
 # функция для завершения программы
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 # Заставка
 def zastavka():
@@ -89,10 +109,8 @@ def screen_igra():
                     Tile('life.png', x, y)
                 elif level[y][x] == 'm':
                     Tile('money_cr.png', x, y)
-                elif level[y][x] == '@':
-                    new_player = Player(x, y)
 
-        return new_player, x, y
+        return x, y
 
     # Класс для отображения тайла
     class Tile(pygame.sprite.Sprite):
@@ -102,36 +120,17 @@ def screen_igra():
             self.rect = self.image.get_rect().move(
                 tile_width * pos_x, tile_height * pos_y)
 
-    # класс для отображения игрока
-    class Player(pygame.sprite.Sprite):
-        def __init__(self, pos_x, pos_y):
-            super().__init__(player_group, all_sprites)
-            self.image = player_image
-            self.rect = self.image.get_rect().move(tile_width * pos_x, tile_height * pos_y + 2)
-            self.pos = pos_x, pos_y
-            self.direction = ''  # начальное направление движения
-            self.moving = False  # флаг движения
-            self.movement_x = 0  # смещение по x
-            self.movement_y = 0  # смещение пo y
-
-        def move(self, x, y):
-            self.pos = x, y
-            self.rect = self.image.get_rect().move(tile_width * x, tile_height * y + 2)
-
-        def update(self):  # функция для обновления координат игрока
-            if self.moving:
-                if self.direction == 'left' and self.rect.x > 0:  # движение влево
-                    self.rect.left -= 0.5
-                if self.direction == 'right' and self.rect.x < level_x:  # движение вправо
-                    self.rect.left += 0.5
-                if self.direction == 'up' and self.rect.y > 0:  # движение вверх
-                    self.rect.top -= 0.5
-                if self.direction == 'down' and self.rect.y < level_y:  # движение вниз
-                    self.rect.top += 0.5
-
 
     # загрузка изображения игрока
-    player_image = load_image('pl.png', -1)
+    animation_images_left = [load_image('pl5.png', -1),
+                             load_image('pl6.png', -1),
+                             load_image('pl7.png', -1),
+                             load_image('pl8.png', -1)]
+
+    animation_images_right = [load_image('pl.png', -1),
+                              load_image('pl2.png', -1),
+                              load_image('pl3.png', -1),
+                              load_image('pl4.png', -1)]
 
     # размеры тайла
     tile_width = tile_height = 74
@@ -141,47 +140,114 @@ def screen_igra():
     player_group = pygame.sprite.Group()  # Группа спрайтов для игрока
 
     level = load_level('level.txt')  # Загрузка уровня из файла
-    player, level_x, level_y = generate_level(level)  # Генерация уровня
-    level_x = WIDTH / tile_width
-    level_y = HEIGHT / tile_height
+    level_x, level_y = generate_level(level)  # Генерация уровня
+    # загрузка изображения игрока
+    animation_images_left = [load_image('pl5.png', -1),
+                             load_image('pl6.png', -1),
+                             load_image('pl7.png', -1),
+                             load_image('pl8.png', -1)]
 
-    # создание объекта игрока
-    pos_x, pos_y = 100, 100
-    player = Player(pos_x, pos_y)
+    animation_images_right = [load_image('pl.png', -1),
+                              load_image('pl2.png', -1),
+                              load_image('pl3.png', -1),
+                              load_image('pl4.png', -1)]
 
+    animation_images_idle = [load_image('pl.png', -1)]
+
+    class Player(pygame.sprite.Sprite):
+        def __init__(self, pos_x, pos_y):
+            super().__init__(player_group, all_sprites)
+            self.animation_images_left = animation_images_left
+            self.animation_images_right = animation_images_right
+            self.animation_images_idle = animation_images_idle
+            self.current_frame = 0
+            self.frame_delay = 1000000  # задержка между кадрами
+            self.direction = 'idle'  # начальное состояние игрока
+            self.image = self.animation_images_idle[0]
+            self.rect = self.image.get_rect().move(tile_width * pos_x, tile_height * pos_y + 2)
+            self.pos = pos_x, pos_y
+
+        def move(self, x, y):
+            self.pos = x, y
+            if self.direction == 'left':
+                self.rect = self.image.get_rect().move(tile_width * x, tile_height * y + 2)
+            elif self.direction == 'right':
+                self.rect = self.image.get_rect().move(tile_width * x, tile_height * y + 2)
+            elif self.direction == 'idle':
+                self.rect = self.image.get_rect().move(tile_width * x, tile_height * y + 2)
+
+        def update_animation(self):
+            if self.direction == 'left':
+                self.current_frame = (self.current_frame + 1) % len(self.animation_images_left)
+                self.image = self.animation_images_left[self.current_frame]
+            elif self.direction == 'right':
+                self.current_frame = (self.current_frame + 1) % len(self.animation_images_right)
+                self.image = self.animation_images_right[self.current_frame]
+            elif self.direction == 'idle':
+                self.current_frame = (self.current_frame + 1) % len(self.animation_images_idle)
+                self.image = self.animation_images_idle[self.current_frame]
+
+        def change_direction(self, direction):
+            self.direction = direction
+
+        def df(self):
+            screen.blit(self.image, (catx, caty))
+
+    caty = 10
+    catx = 10
+    movingRight = False
+    movingDown = False
+    movingLeft = False
+    movingUp = False
+    # инициализация игрока
+    player = Player(catx, caty)
     # главный игровой цикл
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 terminate()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    movingRight = True
+                elif event.key == pygame.K_DOWN:
+                    movingDown = True
+                elif event.key == pygame.K_LEFT:
+                    movingLeft = True
+                elif event.key == pygame.K_UP:
+                    movingUp = True
 
-        keys = pygame.key.get_pressed()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_RIGHT:
+                    movingRight = False
+                elif event.key == pygame.K_DOWN:
+                    movingDown = False
+                elif event.key == pygame.K_LEFT:
+                    movingLeft = False
+                elif event.key == pygame.K_UP:
+                    movingUp = False
 
-        # обработка движения
-        if not player.moving:
-            if keys[pygame.K_LEFT]:
-                player.moving = True
-                player.direction = 'left'
-            elif keys[pygame.K_RIGHT]:
-                player.moving = True
-                player.direction = 'right'
-            elif keys[pygame.K_UP]:
-                player.moving = True
-                player.direction = 'up'
-            elif keys[pygame.K_DOWN]:
-                player.moving = True
-                player.direction = 'down'
+        # actually make the player move
+        if movingRight:
+            player.change_direction('right')
+            catx += 17
+        elif movingDown:
+            player.change_direction('idle')
+            caty += 17
+        elif movingLeft:
+            player.change_direction('left')
+            catx -= 17
+        elif movingUp:
+            player.change_direction('idle')
+            caty -= 17
         else:
-            if not any([keys[pygame.K_LEFT], keys[pygame.K_RIGHT], keys[pygame.K_UP], keys[pygame.K_DOWN]]):
-                player.moving = False
+            player.change_direction('idle')
 
         screen.blit(background_image, (0, 0))
-        tiles_group.draw(screen)  # отрисовака тайлов
-        player_group.update()  # обновление координат игрока
-        player_group.draw(screen)  # отрисовка игрока
-        pygame.display.flip()
+        tiles_group.draw(screen)  # отрисовка тайлов
+        player.update_animation()
+        player.df()
+        pygame.display.update()
         clock.tick(FPS)
-
 
 class Menu:
     def __init__(self, x, y, width, height, kartinka, text):
