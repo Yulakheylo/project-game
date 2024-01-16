@@ -161,7 +161,7 @@ def screen_igra():
             self.animation_images_right = animation_images_right
             self.animation_images_idle = animation_images_idle
             self.current_frame = 0
-            self.frame_delay = 1000000  # задержка между кадрами
+            self.frame_delay = 10  # задержка между кадрами
             self.direction = 'idle'  # начальное состояние игрока
             self.image = self.animation_images_idle[0]
             self.rect = self.image.get_rect().move(tile_width * pos_x, tile_height * pos_y + 2)
