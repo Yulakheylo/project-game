@@ -120,18 +120,6 @@ def screen_igra():
             self.rect = self.image.get_rect().move(
                 tile_width * pos_x, tile_height * pos_y)
 
-
-    # загрузка изображения игрока
-    animation_images_left = [load_image('pl5.png', -1),
-                             load_image('pl6.png', -1),
-                             load_image('pl7.png', -1),
-                             load_image('pl8.png', -1)]
-
-    animation_images_right = [load_image('pl.png', -1),
-                              load_image('pl2.png', -1),
-                              load_image('pl3.png', -1),
-                              load_image('pl4.png', -1)]
-
     # размеры тайла
     tile_width = tile_height = 74
 
@@ -141,6 +129,7 @@ def screen_igra():
 
     level = load_level('level.txt')  # Загрузка уровня из файла
     level_x, level_y = generate_level(level)  # Генерация уровня
+
     # загрузка изображения игрока
     animation_images_left = [load_image('pl5.png', -1),
                              load_image('pl6.png', -1),
