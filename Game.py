@@ -54,7 +54,9 @@ def zastavka():
 zastavka()
 
 
+# открывает окно самой игры
 class Game:
+    # функция для создания эклана игры
     def screen_igra(self):
         if __name__ == '__main__':
             pygame.init()
@@ -76,7 +78,10 @@ class Game:
             pygame.quit()
 
 
+# классс стартового меню
 class StartMenu:
+    # функция для создания кнопки потом передадим x, y, width, height, kartinka, text - это параметры
+    # для кнопок
     def __init__(self, x, y, width, height, kartinka, text):
         self.x = x
         self.y = y
@@ -86,6 +91,7 @@ class StartMenu:
         self.kartinka = pygame.transform.scale(self.kartinka, (width, height))
         self.text = text
 
+    # функция для создания надписей посередине кнопок
     def text_on_knopki(self, screen):
         font = pygame.font.Font(None, 38)
         text = font.render(self.text, 1, (255, 255, 255))
@@ -93,6 +99,8 @@ class StartMenu:
         screen.blit(self.kartinka, knopka)
         screen.blit(text, (self.x + (self.width - text.get_width()) // 2,
                            self.y + (self.height - text.get_height()) // 2))
+
+    # функция для создания звука при нажатии на кнопки меню
 
     def clicking(self, event):
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
@@ -103,11 +111,15 @@ class StartMenu:
                 self.sound = pygame.mixer.Sound('sounds/sound_knopka.mp3')
                 self.sound.play()
 
+    # функция для проверки нажатия на кнопки проверяем по координатам
+    # попали ли мы по кнопке
+
     def proverka_clicking(self, pos):
         return self.x < pos[0] < self.x + self.width and \
             self.y < pos[1] < self.y + self.height
 
 
+# функция для создания шрифта размера и цвета надписей на кнопках
 def text_name_game(screen):
     font = pygame.font.Font(None, 60)
     text = font.render('В поисках утерянного клада', 1, (0, 100, 0))
@@ -209,6 +221,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode(SIZE)
     pygame.display.set_caption('Старт')
 
+    # передаём пораметры для создания кнопок (класс Menu функция __init__)
     knopka_start = StartMenu(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Knopka.png', 'Начать игру')
     knopka_output = StartMenu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
     knopka_levels = StartMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
@@ -225,14 +238,14 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            knopka_start.clicking(event)
+            knopka_start.clicking(event)  # чтобы кнопка кликалась со звуком
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
                     game.screen_igra()
         screen.fill((0, 0, 0))
         screen.blit(foto_fona, (0, 0))
 
-        knopka_start.text_on_knopki(screen)
+        knopka_start.text_on_knopki(screen)  # отображаем кнопки на экране
         knopka_output.text_on_knopki(screen)
         knopka_levels.text_on_knopki(screen)
         knopka_coin.text_on_knopki(screen)
