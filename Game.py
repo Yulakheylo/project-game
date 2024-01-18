@@ -231,7 +231,7 @@ if __name__ == "__main__":
     game = Game()
     # finish_menu = FinishMenu()
 
-    foto_fona = pygame.image.load('images/fon_menu.jpg')
+    foto_fona = pygame.image.load('images/fon_menu.png')
     foto_fona = pygame.transform.scale(foto_fona, (size))
     running = True
     while running:
@@ -242,6 +242,8 @@ if __name__ == "__main__":
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
                     game.screen_igra()
+                if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
+                    zastavka()
         screen.fill((0, 0, 0))
         screen.blit(foto_fona, (0, 0))
 
