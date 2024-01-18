@@ -65,7 +65,7 @@ class Game:
             pygame.display.set_caption('Игра')
 
             kartinka = pygame.image.load('images/fon.png')
-            kartinka = pygame.transform.scale(kartinka, (SIZE))
+            kartinka = pygame.transform.scale(kartinka, (size))
 
             running = True
             while running:
@@ -216,6 +216,35 @@ class Camera:
 
 camera = Camera()
 
+
+class CountCoins:
+    # функция для создания окна для счёта монет
+    def count_coins_menu(self):
+        if __name__ == '__main__':
+            pygame.init()
+            size = width, height = 660, 560
+            screen = pygame.display.set_mode(size)
+            pygame.display.set_caption('Собранные монеты')
+
+            kartinka = pygame.image.load('images/yellow_fon.jpg')
+            kartinka = pygame.transform.scale(kartinka, (size))
+
+            font_count_coins = pygame.font.Font(None, 42)
+            count_coins_text = font_count_coins.render('Лучший результат:___монет', 1, (0, 0, 0))
+            running = True
+            while running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        running = False
+                screen.fill((255, 255, 255))
+                screen.blit(kartinka, (0, 0))
+
+                screen.blit(count_coins_text, (50, 170))
+                pygame.display.flip()
+
+            pygame.quit()
+
+
 if __name__ == "__main__":
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
@@ -229,6 +258,8 @@ if __name__ == "__main__":
     # knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Завершить игру')
 
     game = Game()
+    count_coins = CountCoins()
+
     # finish_menu = FinishMenu()
 
     foto_fona = pygame.image.load('images/fon_menu.png')
@@ -244,6 +275,8 @@ if __name__ == "__main__":
                     game.screen_igra()
                 if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                     zastavka()
+                if knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
+                    count_coins.count_coins_menu()
         screen.fill((0, 0, 0))
         screen.blit(foto_fona, (0, 0))
 
