@@ -25,7 +25,6 @@ def terminate():
     pygame.quit()
     sys.exit()
 
-
 def igra():
     level_int = 1
     level = []
@@ -192,7 +191,7 @@ def igra():
             self.lives = 3
             self.levels = 1
             self.exit_hit = False
-            # self.money_sound = False
+            #self.money_sound = False
 
         def update(self):
             self.vel_y += GRAVITY
@@ -270,6 +269,7 @@ def igra():
                     self.score += 1
                     money_sound = pygame.mixer.Sound('sounds/sound_money.mp3')
                     money_sound.play(0)
+
 
         def collect_life(self):
             # Обработка столкновения с жизнью
@@ -460,7 +460,7 @@ def igra():
             # Если это последний уровень, то игра завершается с победой
             if level_int == 4:
                 WIN()
-                print("Молодец! Возьми с полки пирожок")
+                #print("Молодец! Возьми с полки пирожок")
             else:
                 # Иначе переходим на следующий уровень
                 level_int += 1
@@ -484,6 +484,7 @@ def igra():
         if player.lives <= 0:
             WASTED()
             running = False
+
 
         # Отрисовка игрового окна
         screen.blit(background_image, (0, 0))
@@ -515,7 +516,6 @@ def igra():
         pygame.display.flip()
 
     pygame.quit()
-
 
 def men():
     # классс стартового меню
@@ -576,6 +576,7 @@ def men():
         knopka_coin = StartMenu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
         # knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Завершить игру')
 
+
         # finish_menu = FinishMenu()
 
         foto_fona = pygame.image.load('images/fon_menu.png')
@@ -605,7 +606,6 @@ def men():
             pygame.display.flip()
         pygame.quit()
 
-
 # Заставка
 def zastavka():
     img_game = pygame.image.load('images/zastavka.png')
@@ -634,3 +634,7 @@ def START():
                 return
         screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
         pygame.display.flip()
+
+
+
+
