@@ -459,8 +459,8 @@ def igra():
         if player.exit_hit:
             # Если это последний уровень, то игра завершается с победой
             if level_int == 4:
-                WASTED()
-                print("Молодец! Возьми с полки пирожок")
+                WIN()
+                #print("Молодец! Возьми с полки пирожок")
             else:
                 # Иначе переходим на следующий уровень
                 level_int += 1
@@ -512,7 +512,7 @@ def igra():
             screen.blit(level2_image, (10, 100))
         elif level_int == 3:
             screen.blit(level3_image, (10, 100))
-        screen.blit(coin_image, (100, 10))
+        screen.blit(coin_image, (150, 10))
         pygame.display.flip()
 
     pygame.quit()
