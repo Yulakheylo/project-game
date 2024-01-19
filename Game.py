@@ -517,6 +517,8 @@ def igra():
 
     pygame.quit()
 
+
+
 def men():
     # классс стартового меню
     class StartMenu:
@@ -547,7 +549,8 @@ def men():
                 if (knopka_start.proverka_clicking(pygame.mouse.get_pos()) or
                         knopka_output.proverka_clicking(pygame.mouse.get_pos()) or
                         knopka_levels.proverka_clicking(pygame.mouse.get_pos()) or
-                        knopka_coin.proverka_clicking(pygame.mouse.get_pos())):
+                        knopka_coin.proverka_clicking(pygame.mouse.get_pos()) or
+                        knopka_strelka.proverka_clicking(pygame.mouse.get_pos())):
                     self.sound = pygame.mixer.Sound('sounds/sound_knopka.mp3')
                     self.sound.play()
 
@@ -564,6 +567,36 @@ def men():
         text = font.render('В поисках утерянного клада', 1, (0, 100, 0))
         screen.blit(text, (WIDTH / 2 - (520 / 2), 80))
 
+    class CountCoins:
+        # функция для создания эклана игры
+        def yellow(self):
+            if __name__ == '__main__':
+                pygame.init()
+                size = width, height = 660, 560
+                screen = pygame.display.set_mode(size)
+                pygame.display.set_caption('Собранные монеты')
+
+                kartinka = pygame.image.load('images/yellow_fon.jpg')
+                kartinka = pygame.transform.scale(kartinka, (size))
+
+                font_count_coins = pygame.font.Font(None, 42)
+                count_coins_text = font_count_coins.render('Лучший результат:___монет', 1, (0, 0, 0))
+                knopka_strelka = StartMenu(WIDTH / 2 - (150 / 2), 450, 100, 70, 'images/strelka.png', '')
+                running = True
+                while running:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+                        knopka_strelka.clicking(event)
+
+                    screen.fill((255, 255, 255))
+                    screen.blit(kartinka, (0, 0))
+                    knopka_strelka.text_on_knopki(screen)
+                    screen.blit(count_coins_text, (50, 170))
+                    pygame.display.flip()
+
+                pygame.quit()
+
     if __name__ == "__main__":
         pygame.init()
         screen = pygame.display.set_mode(size)
@@ -574,10 +607,10 @@ def men():
         knopka_output = StartMenu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
         knopka_levels = StartMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
         knopka_coin = StartMenu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
-        # knopka_finish = FinishMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Завершить игру')
+        knopka_strelka = StartMenu(WIDTH / 2 - (150 / 2), 450, 100, 70, 'images/strelka.png', '')
 
-
-        # finish_menu = FinishMenu()
+        count_coins = CountCoins()
+            # finish_menu = FinishMenu()
 
         foto_fona = pygame.image.load('images/fon_menu.png')
         foto_fona = pygame.transform.scale(foto_fona, (size))
@@ -592,6 +625,9 @@ def men():
                         igra()
                     if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                         terminate()
+                    if knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
+                        count_coins.yellow()
+
             screen.fill((0, 0, 0))
             screen.blit(foto_fona, (0, 0))
 
@@ -599,12 +635,12 @@ def men():
             knopka_output.text_on_knopki(screen)
             knopka_levels.text_on_knopki(screen)
             knopka_coin.text_on_knopki(screen)
-            # knopka_finish.text_on_knopki(screen)
 
             text_name_game(screen)
 
             pygame.display.flip()
         pygame.quit()
+
 
 # Заставка
 def zastavka():
