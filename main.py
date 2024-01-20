@@ -197,6 +197,98 @@ def text_name_game(screen):
 #         pygame.display.flip()
 #     pygame.quit()
 
+    def count_coins():
+        # функция для создания эклана игры
+        pygame.init()
+        size = width, height = 1187, 660
+        screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Собранные монеты')
+
+        kartinka = pygame.image.load('images/yellow_fon.jpg')
+        kartinka = pygame.transform.scale(kartinka, (size))
+
+        font_count_coins = pygame.font.Font(None, 42)
+        count_coins_text = font_count_coins.render(f'Лучший результат:36монет', 1, (0, 0, 0))
+        # knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+                knopka_strelka.clicking(event)
+            screen.fill((255, 255, 255))
+            screen.blit(kartinka, (0, 0))
+            # knopka_strelka.text_on_knopki(screen)
+            screen.blit(count_coins_text, (450, 170))
+            pygame.display.flip()
+
+        pygame.quit()
+
+    def yrowni():
+        pygame.init()
+        size = width, height = 1187, 660
+        screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Уровни')
+        font_count_coins = pygame.font.Font(None, 70)
+
+        count_coins_text = font_count_coins.render('Первый уровень', 1, (0, 0, 0))
+        count1_coins_text = font_count_coins.render('Второй уровень', 1, (0, 0, 0))
+        count2_coins_text = font_count_coins.render('Третий уровень', 1, (0, 0, 0))
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    return
+            screen.blit(foto_fona, (0, 0))
+            screen.blit(count_coins_text, (320, 170))
+            screen.blit(count1_coins_text, (320, 270))
+            screen.blit(count2_coins_text, (320, 370))
+            pygame.display.flip()
+
+        pygame.quit()
+
+    if __name__ == "__main__":
+        pygame.init()
+        screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Старт')
+
+        # передаём пораметры для создания кнопок (класс Menu функция __init__)
+        knopka_start = StartMenu(WIDTH / 2 - (251 / 2), 150, 252, 120, 'images/Knopka.png', 'Начать игру')
+        knopka_output = StartMenu(WIDTH / 2 - (251 / 2), 250, 252, 120, 'images/Knopka.png', 'Выйти из игры')
+        knopka_levels = StartMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
+        knopka_coin = StartMenu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
+        knopka_strelka = StartMenu(WIDTH / 2 - (150 / 2), 450, 100, 70, 'images/strelka.png', '')
+
+        foto_fona = pygame.image.load('images/fon_menu.png')
+        foto_fona = pygame.transform.scale(foto_fona, (size))
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                knopka_start.clicking(event)  # чтобы кнопка кликалась со звуком
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
+                        igra()
+                    if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
+                        terminate()
+                    if knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
+                        count_coins()
+                    if knopka_levels.proverka_clicking(pygame.mouse.get_pos()):
+                        yrowni()
+            screen.fill((0, 0, 0))
+            screen.blit(foto_fona, (0, 0))
+
+            knopka_start.text_on_knopki(screen)  # отображаем кнопки на экране
+            knopka_output.text_on_knopki(screen)
+            knopka_levels.text_on_knopki(screen)
+            knopka_coin.text_on_knopki(screen)
+
+            text_name_game(screen)
+
+            pygame.display.flip()
+        pygame.quit()
+
 class Camera:
     # зададим начальный сдвиг камеры
     def __init__(self):
