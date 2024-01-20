@@ -503,6 +503,7 @@ def igra():
         exit_group.draw(screen)
         screen.blit(score_label, (10, 15))
         screen.blit(lives_label, (WIDTH - lives_label.get_width() - 90, 15))
+
         # Отображение изображения на экране
         screen.blit(live_image, (1100, 10))
         if level_int == 1:
@@ -576,7 +577,7 @@ def men():
         kartinka = pygame.transform.scale(kartinka, (size))
 
         font_count_coins = pygame.font.Font(None, 42)
-        count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
+        count_coins_text = font_count_coins.render(f'Лучший результат:36монет', 1, (0, 0, 0))
         #knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
         running = True
         while running:
