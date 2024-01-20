@@ -25,6 +25,7 @@ def terminate():
     pygame.quit()
     sys.exit()
 
+
 def igra():
     level_int = 1
     level = []
@@ -191,7 +192,7 @@ def igra():
             self.lives = 3
             self.levels = 1
             self.exit_hit = False
-            #self.money_sound = False
+            # self.money_sound = False
 
         def update(self):
             self.vel_y += GRAVITY
@@ -269,7 +270,6 @@ def igra():
                     self.score += 1
                     money_sound = pygame.mixer.Sound('sounds/sound_money.mp3')
                     money_sound.play(0)
-
 
         def collect_life(self):
             # Обработка столкновения с жизнью
@@ -460,7 +460,7 @@ def igra():
             # Если это последний уровень, то игра завершается с победой
             if level_int == 4:
                 WIN()
-                #print("Молодец! Возьми с полки пирожок")
+                # print("Молодец! Возьми с полки пирожок")
             else:
                 # Иначе переходим на следующий уровень
                 level_int += 1
@@ -484,7 +484,6 @@ def igra():
         if player.lives <= 0:
             WASTED()
             running = False
-
 
         # Отрисовка игрового окна
         screen.blit(background_image, (0, 0))
@@ -516,7 +515,6 @@ def igra():
         pygame.display.flip()
 
     pygame.quit()
-
 
 
 def men():
@@ -567,35 +565,55 @@ def men():
         text = font.render('В поисках утерянного клада', 1, (0, 100, 0))
         screen.blit(text, (WIDTH / 2 - (520 / 2), 80))
 
-    class CountCoins:
+    def yrowni():
+        pygame.init()
+        size = width, height = 660, 560
+        screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Уровни')
+        font_count_coins = pygame.font.Font(None, 70)
+
+        count_coins_text = font_count_coins.render('Легкий', 1, (0, 0, 0))
+        count1_coins_text = font_count_coins.render('Средний', 1, (0, 0, 0))
+        count2_coins_text = font_count_coins.render('Сложный', 1, (0, 0, 0))
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+            screen.fill((134, 218, 118))
+            screen.blit(count_coins_text, (250, 170))
+            screen.blit(count1_coins_text, (220, 270))
+            screen.blit(count2_coins_text, (220, 370))
+            pygame.display.flip()
+
+        pygame.quit()
+
+    def count_coins():
         # функция для создания эклана игры
-        def yellow(self):
-            if __name__ == '__main__':
-                pygame.init()
-                size = width, height = 660, 560
-                screen = pygame.display.set_mode(size)
-                pygame.display.set_caption('Собранные монеты')
+        pygame.init()
+        size = width, height = 660, 560
+        screen = pygame.display.set_mode(size)
+        pygame.display.set_caption('Собранные монеты')
 
-                kartinka = pygame.image.load('images/yellow_fon.jpg')
-                kartinka = pygame.transform.scale(kartinka, (size))
+        kartinka = pygame.image.load('images/yellow_fon.jpg')
+        kartinka = pygame.transform.scale(kartinka, (size))
 
-                font_count_coins = pygame.font.Font(None, 42)
-                count_coins_text = font_count_coins.render('Лучший результат:___монет', 1, (0, 0, 0))
-                knopka_strelka = StartMenu(WIDTH / 2 - (150 / 2), 450, 100, 70, 'images/strelka.png', '')
-                running = True
-                while running:
-                    for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                            running = False
-                        knopka_strelka.clicking(event)
+        font_count_coins = pygame.font.Font(None, 42)
+        count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
+        knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
+        running = True
+        while running:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                knopka_strelka.clicking(event)
+            screen.fill((255, 255, 255))
+            screen.blit(kartinka, (0, 0))
+            knopka_strelka.text_on_knopki(screen)
+            screen.blit(count_coins_text, (50, 170))
+            pygame.display.flip()
 
-                    screen.fill((255, 255, 255))
-                    screen.blit(kartinka, (0, 0))
-                    knopka_strelka.text_on_knopki(screen)
-                    screen.blit(count_coins_text, (50, 170))
-                    pygame.display.flip()
-
-                pygame.quit()
+        pygame.quit()
 
     if __name__ == "__main__":
         pygame.init()
@@ -608,9 +626,6 @@ def men():
         knopka_levels = StartMenu(WIDTH / 2 - (251 / 2), 350, 252, 120, 'images/Knopka.png', 'Уровни')
         knopka_coin = StartMenu(WIDTH / 2 - (80 / 2), 470, 70, 50, 'images/coins.png', '')
         knopka_strelka = StartMenu(WIDTH / 2 - (150 / 2), 450, 100, 70, 'images/strelka.png', '')
-
-        count_coins = CountCoins()
-            # finish_menu = FinishMenu()
 
         foto_fona = pygame.image.load('images/fon_menu.png')
         foto_fona = pygame.transform.scale(foto_fona, (size))
@@ -626,8 +641,9 @@ def men():
                     if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                         terminate()
                     if knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
-                        count_coins.yellow()
-
+                        count_coins()
+                    if knopka_levels.proverka_clicking(pygame.mouse.get_pos()):
+                        yrowni()
             screen.fill((0, 0, 0))
             screen.blit(foto_fona, (0, 0))
 
@@ -659,6 +675,22 @@ def zastavka():
 zastavka()
 
 
+def yellow():
+    img_game = pygame.image.load('images/yellow_fon.jpg')
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.KEYDOWN or \
+                    event.type == pygame.MOUSEBUTTONDOWN:
+                men()
+        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
+        pygame.display.flip()
+
+
+yellow()
+
+
 def START():
     img_game = pygame.image.load('images/start.png')
     while True:
@@ -670,7 +702,3 @@ def START():
                 return
         screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
         pygame.display.flip()
-
-
-
-
