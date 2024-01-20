@@ -568,7 +568,7 @@ def men():
     def count_coins():
         # функция для создания эклана игры
         pygame.init()
-        size = width, height = 660, 560
+        size = width, height = 1200, 670
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption('Собранные монеты')
 
@@ -577,17 +577,17 @@ def men():
 
         font_count_coins = pygame.font.Font(None, 42)
         count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
-        knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
+        #knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    return
                 knopka_strelka.clicking(event)
             screen.fill((255, 255, 255))
             screen.blit(kartinka, (0, 0))
-            knopka_strelka.text_on_knopki(screen)
-            screen.blit(count_coins_text, (50, 170))
+            #knopka_strelka.text_on_knopki(screen)
+            screen.blit(count_coins_text, (450, 170))
             pygame.display.flip()
 
         pygame.quit()
