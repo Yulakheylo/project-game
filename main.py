@@ -503,7 +503,6 @@ def igra():
         exit_group.draw(screen)
         screen.blit(score_label, (10, 15))
         screen.blit(lives_label, (WIDTH - lives_label.get_width() - 90, 15))
-
         # Отображение изображения на экране
         screen.blit(live_image, (1100, 10))
         if level_int == 1:
@@ -517,17 +516,6 @@ def igra():
 
     pygame.quit()
 
-def START():
-    img_game = pygame.image.load('images/start.png')
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                terminate()
-            elif event.type == pygame.KEYDOWN or \
-                    event.type == pygame.MOUSEBUTTONDOWN:
-                return
-        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
-        pygame.display.flip()
 
 def men():
     # классс стартового меню
@@ -588,8 +576,8 @@ def men():
         kartinka = pygame.transform.scale(kartinka, (size))
 
         font_count_coins = pygame.font.Font(None, 42)
-        count_coins_text = font_count_coins.render(f'Лучший результат:36монет', 1, (0, 0, 0))
-        # knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
+        count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
+        #knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
         running = True
         while running:
             for event in pygame.event.get():
@@ -598,7 +586,7 @@ def men():
                 knopka_strelka.clicking(event)
             screen.fill((255, 255, 255))
             screen.blit(kartinka, (0, 0))
-            # knopka_strelka.text_on_knopki(screen)
+            #knopka_strelka.text_on_knopki(screen)
             screen.blit(count_coins_text, (450, 170))
             pygame.display.flip()
 
@@ -649,7 +637,6 @@ def men():
                 knopka_start.clicking(event)  # чтобы кнопка кликалась со звуком
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
-                        START()
                         igra()
                     if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                         terminate()
@@ -703,3 +690,15 @@ def yellow():
 
 yellow()
 
+
+def START():
+    img_game = pygame.image.load('images/start.png')
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.KEYDOWN or \
+                    event.type == pygame.MOUSEBUTTONDOWN:
+                return
+        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
+        pygame.display.flip()
