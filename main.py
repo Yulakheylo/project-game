@@ -576,7 +576,8 @@ def men():
         kartinka = pygame.transform.scale(kartinka, (size))
 
         font_count_coins = pygame.font.Font(None, 42)
-        count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
+        count_coins_text = font_count_coins.render(f'Лучший результат:36монет', 1, (0, 0, 0))
+        #knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
         running = True
         while running:
             for event in pygame.event.get():
@@ -585,6 +586,7 @@ def men():
                 knopka_strelka.clicking(event)
             screen.fill((255, 255, 255))
             screen.blit(kartinka, (0, 0))
+            #knopka_strelka.text_on_knopki(screen)
             screen.blit(count_coins_text, (450, 170))
             pygame.display.flip()
 
