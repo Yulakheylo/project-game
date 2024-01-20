@@ -567,7 +567,7 @@ def men():
 
     def yrowni():
         pygame.init()
-        size = width, height = 660, 560
+        size = width, height = 1187, 660
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption('Уровни')
         font_count_coins = pygame.font.Font(None, 70)
@@ -579,11 +579,11 @@ def men():
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    zastavka()
             screen.fill((134, 218, 118))
-            screen.blit(count_coins_text, (250, 170))
-            screen.blit(count1_coins_text, (220, 270))
-            screen.blit(count2_coins_text, (220, 370))
+            screen.blit(count_coins_text, (500, 170))
+            screen.blit(count1_coins_text, (470, 270))
+            screen.blit(count2_coins_text, (470, 370))
             pygame.display.flip()
 
         pygame.quit()
@@ -591,7 +591,7 @@ def men():
     def count_coins():
         # функция для создания эклана игры
         pygame.init()
-        size = width, height = 660, 560
+        size = width, height = 1187, 660
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption('Собранные монеты')
 
@@ -599,18 +599,18 @@ def men():
         kartinka = pygame.transform.scale(kartinka, (size))
 
         font_count_coins = pygame.font.Font(None, 42)
-        count_coins_text = font_count_coins.render(f'Лучший результат:30монет', 1, (0, 0, 0))
-        knopka_strelka = StartMenu(WIDTH / 2 - (600 / 2), 450, 100, 70, 'images/strelka.png', '')
+        count_coins_text = font_count_coins.render(f'Лучший результат:{30}монет', 1, (0, 0, 0))
+        knopka_strelka = StartMenu(WIDTH / 2 - (200 / 2), 450, 100, 70, 'images/strelka.png', '')
         running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    zastavka()
                 knopka_strelka.clicking(event)
             screen.fill((255, 255, 255))
             screen.blit(kartinka, (0, 0))
             knopka_strelka.text_on_knopki(screen)
-            screen.blit(count_coins_text, (50, 170))
+            screen.blit(count_coins_text, (400, 170))
             pygame.display.flip()
 
         pygame.quit()
