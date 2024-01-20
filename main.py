@@ -568,7 +568,7 @@ def men():
     def count_coins():
         # функция для создания эклана игры
         pygame.init()
-        size = width, height = 1200, 670
+        size = width, height = 1187, 660
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption('Собранные монеты')
 
@@ -592,7 +592,7 @@ def men():
 
     def yrowni():
         pygame.init()
-        size = width, height = 1200, 670
+        size = width, height = 1187, 660
         screen = pygame.display.set_mode(size)
         pygame.display.set_caption('Уровни')
         font_count_coins = pygame.font.Font(None, 70)
