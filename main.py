@@ -15,6 +15,7 @@ PLAYER_SPEED = 5
 JUMP_HEIGHT = -17
 size = WIDTH, HEIGHT
 
+
 # Создание игрового окна
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("игрухки")
