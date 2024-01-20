@@ -246,7 +246,7 @@ def igra():
             self.animate()
 
         def animate(self):
-            # Анимация движения игрока
+        #Анимация движения игрока
             if self.vel_y != 0:
                 self.current_image = 9
             else:
