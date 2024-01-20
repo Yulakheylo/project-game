@@ -517,6 +517,18 @@ def igra():
     pygame.quit()
 
 
+def START():
+    img_game = pygame.image.load('images/start.png')
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                terminate()
+            elif event.type == pygame.KEYDOWN or \
+                    event.type == pygame.MOUSEBUTTONDOWN:
+                return
+        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
+        pygame.display.flip()
+
 def men():
     # классс стартового меню
     class StartMenu:
@@ -637,6 +649,7 @@ def men():
                 knopka_start.clicking(event)  # чтобы кнопка кликалась со звуком
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
+                        START()
                         igra()
                     if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                         terminate()
@@ -689,16 +702,3 @@ def yellow():
 
 
 yellow()
-
-
-def START():
-    img_game = pygame.image.load('images/start.png')
-    while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                terminate()
-            elif event.type == pygame.KEYDOWN or \
-                    event.type == pygame.MOUSEBUTTONDOWN:
-                return
-        screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
-        pygame.display.flip()
