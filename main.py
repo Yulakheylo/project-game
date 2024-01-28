@@ -652,11 +652,11 @@ def men():
                     if knopka_start.proverka_clicking(pygame.mouse.get_pos()):
                         START()
                         igra()
-                    if knopka_output.proverka_clicking(pygame.mouse.get_pos()):
+                    elif knopka_output.proverka_clicking(pygame.mouse.get_pos()):
                         terminate()
-                    if knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
+                    elif knopka_coin.proverka_clicking(pygame.mouse.get_pos()):
                         count_coins()
-                    if knopka_levels.proverka_clicking(pygame.mouse.get_pos()):
+                    elif knopka_levels.proverka_clicking(pygame.mouse.get_pos()):
                         yrowni()
             screen.fill((0, 0, 0))
             screen.blit(foto_fona, (0, 0))
@@ -685,8 +685,9 @@ def zastavka():
         screen.blit(pygame.transform.scale(img_game, [1200, 670]), [0, 0])
         pygame.display.flip()
 
-
+pygame.init()
 zastavka()
+pygame.quit()
 
 
 def yellow():
